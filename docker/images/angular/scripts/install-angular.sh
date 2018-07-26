@@ -15,7 +15,7 @@ then
 
    echo -ne "\e[33mInstalling Angular ...\e[0m\n\n"
 
-   ng new $APP_NAME --force --directory /home/node/angular
+   ng new $APP_NAME --force --directory /home/node/angular --skip-npm
 
    echo -ne "\n\e[33mAngular Installed ...\e[0m\n\n"
 

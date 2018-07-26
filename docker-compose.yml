@@ -8,29 +8,29 @@ services:
       - ./.git:/tmp/.git
       - ./hooks:/tmp/hooks
 
-#  projectname_nginx:
-#    container_name: projectname_nginx
-#    build: ./docker/images/nginx
+  projectname_nginx:
+    container_name: projectname_nginx
+    build: ./docker/images/nginx
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./angular/dist/PROJECT-NAME/:/usr/share/nginx/html
+    tty: true
+
+  projectname_angular:
+    container_name: projectname_angular
+    build: ./docker/images/angular/.
 #    restart: always
-#    ports:
-#      - 80:80
-#      - 443:443
-#    volumes:
-#      - ./angular/dist/PROJECT-NAME/:/usr/share/nginx/html
-#    tty: true
-#
-#  projectname_angular:
-#    container_name: projectname_angular
-#    build: ./docker/images/angular/.
-##    restart: always
-#    ports:
-#      - 8081:8081
-#      - 4200:4200
-#    environment:
-#      - NODE_ENV=development
-##      - BUILD_COMMAND=ng build
-##      - SERVE_COMMAND=ng serve "--host" 0.0.0.0
-#    volumes:
-#      - ./angular/:/home/node/angular
-#    tty: true
+    ports:
+      - 8081:8081
+      - 4200:4200
+    environment:
+      - NODE_ENV=development
+#      - BUILD_COMMAND=ng build
+#      - SERVE_COMMAND=ng serve "--host" 0.0.0.0
+    volumes:
+      - ./angular/:/home/node/angular
+    tty: true
 
