@@ -1,0 +1,17 @@
+node_modules/*
+e2e/*
+dist/*
+**/node_modules/*
+.editorconfig
+.eslintignore
+.eslintrc
+.gitignore
+*.img
+*.ico
+*.json
+*.html
+README.md
+browserslist
+yarn.lock
+*.log
+src/test.ts

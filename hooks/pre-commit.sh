@@ -18,5 +18,7 @@ then
   exit 1
 fi
 
+# TODO add check for -- eslint "/home/node/angular**" --fix
+
 echo -ne "\n\e[33m  Committing ...\e[0m\n\n"
 exit 0
