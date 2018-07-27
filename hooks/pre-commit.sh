@@ -8,7 +8,9 @@ then
   exit 1
 fi
 
-TSLINT_RESULT=$(docker exec projectname_angular yarn lint)
+echo -ne "\n\e[33m  yarn lint ...\e[0m\n\n"
+
+TSLINT_RESULT=$(docker exec projectname_angular yarn lint PROJECT-NAME --fix)
 
 echo $TSLINT_RESULT
 
@@ -18,7 +20,17 @@ then
   exit 1
 fi
 
-# TODO add check for -- eslint "/home/node/angular**" --fix
+echo -ne "\n\e[33m  eslint ...\e[0m\n\n"
+
+ESLINT_RESUL=$(docker exec projectname_angular eslint /home/node/angular/** --fix --quiet  )
+
+echo $ESLINT_RESUL
+
+if [[ $ESLINT_RESUL =~  .*problem.*  ]]
+then
+  echo -ne "\n\e[33m  Check failed!\e[0m\n\n"
+  exit 1
+fi
 
 echo -ne "\n\e[33m  Committing ...\e[0m\n\n"
 exit 0
