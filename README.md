@@ -39,7 +39,7 @@ To work this, the project need to be in git repository and to have your project 
   
   2. Delete `/.git` directory and set up your own repository.
 After that only need to run the project.
-This will aromatically copy the `/hooks` folder in the `/.git` directory.
+This will automatically copy the `/hooks` folder in the `/.git` directory.
 
 When you try to commit, the pre-commit hook will check for your angular container.
 After that will check your code with tslin and eslint. If there is any error will prevent the commit.
