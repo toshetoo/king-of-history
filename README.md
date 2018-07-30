@@ -1,27 +1,45 @@
-# PROJECTNAME
+# Angular code base 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+## Basic settings
 
-## Development server
+Before you run anything you need to change some names.
+ 
+  1. Change containers name in `docker-compose.yml`.
+  2. Change `APP_NAME` environment variable for the angular container.
+  3. In `/hooks/pre-commit.sh` search for `projectname_angular` and change it.
+  4. In `/docker/images/nginx/config/nginx.conf` change `PROJECT-NAME` to the value of `APP_NAME` environment variable from the angular container.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Start up the project
 
-## Code scaffolding
+If you need to, you can change the two command for build and serve the angular application.
+You can find it in `docker-compose.yml` file at the environment part.
+When you are ready, run command: 
+```
+docker-compose up --build
+```
+or to run as a daemon: 
+```
+docker-compose up -d
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+This will create `/angular` folder and install in it the latest available stable version of angular.
+In `/angular/dist` will crate folder with name the value of `PROJECT-NAME` environment variable and will build the app there with `BUILD_COMMAND` environment
+ variable.
+After that will serve it `SERVE_COMMAND`
 
-## Build
+The build you can find it at `http://localhost` at port `:80`. The web server is `NGINX`.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Git Hooks
 
-## Running unit tests
+To work this, the project need to be in git repository and to have your project running in docker.
+  1. If your project is running stop it with command:
+  ```
+  docker-compose down
+  ``` 
+  
+  2. Delete `/.git` directory and set up your own repository.
+After that only need to run the project.
+This will aromatically copy the `/hooks` folder in the `/.git` directory.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+When you try to commit, the pre-commit hook will check for your angular container.
+After that will check your code with tslin and eslint. If there is any error will prevent the coomit.
